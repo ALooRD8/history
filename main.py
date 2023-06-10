@@ -10,10 +10,10 @@ B = '\033[0;34m'
 
 
 def main():
-    n = 6
+        n = 6
     
-    try:
-        inp: int = int(input('1.Unit 1\n2.Unit 2\n3.Unit 3\n4.Unit 4\n5.The entire book (for men)'))
+    # try:
+        inp: int = int(input('1.Unit 1\n2.Unit 2\n3.Unit 3\n4.Unit 4\n5.The entire book (for men)\n'))
 
         if inp == 1:
             delete_multiple_lines(n)
@@ -35,8 +35,8 @@ def main():
             delete_multiple_lines(n)
             entire()
 
-    except:
-        print('There was an error')
+    # except:
+    #     print('There was an error')
 
 def delete_multiple_lines(n=1):
     """Delete the last line in the STDOUT."""
@@ -53,7 +53,7 @@ def unit1():
 
         if inp == 1:
             delete_multiple_lines(n)
-            u1_lesson1()
+            lessons(85, 'u1_l1')
 
     except:
 
@@ -68,19 +68,19 @@ def unit2():
 
         if inp == 1:
             delete_multiple_lines(n)
-            u2_lesson1()
+            lessons(62, 'u2_l1')
 
         elif inp == 2:
             delete_multiple_lines(n)
-            u2_lesson2()
+            lessons(31, 'u2_l2')
 
         elif inp == 3:
             delete_multiple_lines(n)
-            u2_lesson3()
+            lessons(97, 'u2_l3')
 
         elif inp == 4:
             delete_multiple_lines(n)
-            u2_lesson4()
+            lessons(126, 'u2_l4')
 
     except:
 
@@ -95,15 +95,15 @@ def unit3():
 
         if inp == 1:
             delete_multiple_lines(n)
-            u3_lesson1()
+            lessons(83, 'u3_l1')
 
         elif inp == 2:
             delete_multiple_lines(n)
-            u3_lesson2()
+            lessons(46, 'u3_l2')
 
         elif inp == 3:
             delete_multiple_lines(n)
-            u3_lesson3()
+            lessons(58, 'u3_l3')
 
     except:
 
@@ -118,15 +118,15 @@ def unit4():
 
         if inp == 1:
             delete_multiple_lines(n)
-            u4_lesson1()
+            lessons(27, 'u4_l1')
 
         elif inp == 2:
             delete_multiple_lines(n)
-            u4_lesson2()
+            lessons(23, 'u4_l2')
 
         elif inp == 3:
             delete_multiple_lines(n)
-            u4_lesson3()
+            lessons(26, 'u4_l3')
 
     except:
 
@@ -134,67 +134,42 @@ def unit4():
 
 def entire():
     
+    global entire_tottal_rate
+    entire_tottal_rate = list()
+
     lessons_list: list = ['u1_l1', 'u2_l1', 'u2_l2', 'u2_l3', 'u2_l4', 'u3_l1', 'u3_l2',
                           'u3_l3', 'u4_l1', 'u4_l2', 'u4_l3']
     
-    lessons_dict: dict = {'u1_l1': 1, 'u2_l1': 9, 'u2_l2': 15, 'u2_l3': 18, 'u2_l4': 27,
-                          'u3_l1': 39, 'u3_l2': 46, 'u3_l3': 51, 'u4_l1': 57,
-                          'u4_l2': 60, 'u4_l3': 63}
-    
     random.shuffle(lessons_list)
 
-###########################
+    i = 1
 
-def u1_lesson1():
-    
-    start, end = 1, 85
-    make_dict('u1_l1', start, end)
+    while len(lessons_list) > 0:
 
-    global quiz_dict
-    quiz_dict = dict()
+        lessons_page_dict: dict = {'u1_l1': 1, 'u2_l1': 9, 'u2_l2': 15, 'u2_l3': 18,
+                                'u2_l4': 27, 'u3_l1': 39, 'u3_l2': 46, 'u3_l3': 51,
+                                'u4_l1': 57,'u4_l2': 60, 'u4_l3': 63}
+        
+        lessons_end_dict: dict = {'u1_l1': 85, 'u2_l1': 62, 'u2_l2': 31, 'u2_l3': 97,
+                                'u2_l4': 126, 'u3_l1': 83, 'u3_l2': 46, 'u3_l3': 58,
+                                'u4_l1': 27, 'u4_l2': 23, 'u4_l3': 26}
 
-    for i in range(start, end + 1):
+        print(f'{i}.Page number ({lessons_page_dict[lessons_list[0]]}) | Unit{lessons_list[0][1]} Chapter{lessons_list[0][4]}')
 
-        inp: str = input(f'{i}: ')
+        lessons(lessons_end_dict[lessons_list[0]], lessons_list[0], False)
 
-        quiz_dict[i] = inp
+        lessons_list = lessons_list[1:]
 
-        if i % 12 == 0:
+        i += 1
 
-            delete_multiple_lines(12)
-
-    delete_multiple_lines(end)
-
-    compare(start, end)
+    entire_analysis()
 
 ###########################
 
-def u2_lesson1():
+def lessons(end: int, lesson: str, able_to_compare=True):
 
-    start, end = 1, 62
-    make_dict('u2_l1', start, end)
-
-    global quiz_dict
-    quiz_dict = dict()
-
-    for i in range(start, end + 1):
-
-        inp: str = input(f'{i}: ')
-
-        quiz_dict[i] = inp
-
-        if i % 12 == 0:
-
-            delete_multiple_lines(12)
-
-    delete_multiple_lines(end)
-
-    compare(start, end)
-
-def u2_lesson2():
-
-    start, end = 1, 31
-    make_dict('u2_l2', start, end)
+    start, end = 1, end
+    make_dict(lesson, start, end)
 
     global quiz_dict
     quiz_dict = dict()
@@ -211,187 +186,11 @@ def u2_lesson2():
 
     delete_multiple_lines(end)
 
-    compare(start, end)
-
-def u2_lesson3():
-
-    start, end = 1, 97
-    make_dict('u2_l3', start, end)
-
-    global quiz_dict
-    quiz_dict = dict()
-
-    for i in range(start, end + 1):
-
-        inp: str = input(f'{i}: ')
-
-        quiz_dict[i] = inp
-
-        if i % 12 == 0:
-
-            delete_multiple_lines(12)
-
-    delete_multiple_lines(end)
-
-    compare(start, end)
-
-def u2_lesson4():
-
-    start, end = 1, 126
-    make_dict('u2_l4', start, end)
-
-    global quiz_dict
-    quiz_dict = dict()
-
-    for i in range(start, end + 1):
-
-        inp: str = input(f'{i}: ')
-
-        quiz_dict[i] = inp
-
-        if i % 12 == 0:
-
-            delete_multiple_lines(12)
-
-    delete_multiple_lines(end)
-
-    compare(start, end)
-
-###########################
-
-def u3_lesson1():
-
-    start, end = 1, 83
-    make_dict('u3_l1', start, end)
-
-    global quiz_dict
-    quiz_dict = dict()
-
-    for i in range(start, end + 1):
-
-        inp: str = input(f'{i}: ')
-
-        quiz_dict[i] = inp
-
-        if i % 12 == 0:
-
-            delete_multiple_lines(12)
-
-    delete_multiple_lines(end)
-
-    compare(start, end)
-
-def u3_lesson2():
-
-    start, end = 1, 46
-    make_dict('u3_l2', start, end)
-
-    global quiz_dict
-    quiz_dict = dict()
-
-    for i in range(start, end + 1):
-
-        inp: str = input(f'{i}: ')
-
-        quiz_dict[i] = inp
-
-        if i % 12 == 0:
-
-            delete_multiple_lines(12)
-
-    delete_multiple_lines(end)
-
-    compare(start, end)
-
-def u3_lesson3():
-
-    start, end = 1, 58
-    make_dict('u3_l3', start, end)
-
-    global quiz_dict
-    quiz_dict = dict()
-
-    for i in range(start, end + 1):
-
-        inp: str = input(f'{i}: ')
-
-        quiz_dict[i] = inp
-
-        if i % 12 == 0:
-
-            delete_multiple_lines(12)
-
-    delete_multiple_lines(end)
-
-    compare(start, end)
-
-###########################
-
-def u4_lesson1():
-
-    start, end = 1, 27
-    make_dict('u4_l1', start, end)
-
-    global quiz_dict
-    quiz_dict = dict()
-
-    for i in range(start, end + 1):
-
-        inp: str = input(f'{i}: ')
-
-        quiz_dict[i] = inp
-
-        if i % 12 == 0:
-
-            delete_multiple_lines(12)
-
-    delete_multiple_lines(end)
-
-    compare(start, end)
-
-def u4_lesson2():
-
-    start, end = 1, 23
-    make_dict('u4_l2', start, end)
-
-    global quiz_dict
-    quiz_dict = dict()
-
-    for i in range(start, end + 1):
-
-        inp: str = input(f'{i}: ')
-
-        quiz_dict[i] = inp
-
-        if i % 12 == 0:
-
-            delete_multiple_lines(12)
-
-    delete_multiple_lines(end)
-
-    compare(start, end)
-
-def u4_lesson3():
-
-    start, end = 1, 26
-    make_dict('u4_l3', start, end)
-
-    global quiz_dict
-    quiz_dict = dict()
-
-    for i in range(start, end + 1):
-
-        inp: str = input(f'{i}: ')
-
-        quiz_dict[i] = inp
-
-        if i % 12 == 0:
-
-            delete_multiple_lines(12)
-
-    delete_multiple_lines(end)
-
-    compare(start, end)
+    if able_to_compare:
+        compare(start, end)
+
+    else:
+        entire_compare(end)
 
 ###########################
 
@@ -441,6 +240,32 @@ def analysis(rate: int, count: int , len: int) -> None:
     print('|----------------|---------|-----------|---------------------|------')
     print()
     print(f' {R}{wrong_list}{W}')
+
+###########################
+
+def entire_compare(end: int):
+
+    for i in range(1, end + 1):
+
+        if quiz_dict[i] == answers_dict[i]:
+
+            entire_tottal_rate.append(True)
+
+        else:
+
+            entire_tottal_rate.append(False)
+
+def entire_analysis():
+    
+    count = entire_tottal_rate.count(True)
+
+    entire_len = len(entire_tottal_rate)
+
+    rate = count / entire_len * 100
+
+    print('|----------------|---------|----------------------------------')
+    print(f'|  your rate is  |  {G}{round(rate, 2):5}{W}  |  {B}{count:2} / {entire_len:2}{W}')
+    print('|----------------|---------|----------------------------------')
 
 
 
